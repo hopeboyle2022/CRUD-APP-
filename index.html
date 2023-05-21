@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <!-- I created this online store using the assignment 6
+    code I created which was the backend functionality for the store
+    this week, I worked on adding the frontend, so a user can use it online
+    this is done on a windows laptop in VScode with mongoose, express, nodeJs
+    html, css, js and ajax, i used w3 schools, mongodv website and different tutorials to 
+    help me with this assignment -->
+    <title>Hope's Hypothetical Store</title>
+</head>
+
+<body>
+    <div class="text-center">
+        <h1>Hope's Hypothetical Online Store<h1>
+    </div>
+
+    <div class="wrapper mb-3 mt-3">
+        <form class="comment_form row g-3 p-2" method="post" action="/add_user">
+
+
+            <h3>Enter User Information<h3>
+                    <input type="text" name="title" placeholder="Title.." class="form-control" required>
+                    <input type="text" name="fname" placeholder="First name..." class="form-control" required>
+                    <input type="text" name="surname" placeholder="Last name..." class="form-control" required>
+                    <input type="text" name="mobile" placeholder="Mobile Number.." class="form-control" required>
+                    <input type="text" name="email" placeholder="Email Address.." class="form-control" required>
+                    </br><button type="submit" class="btn btn-primary"> Add User </button>
+        </form>
+
+        <form method="post" action="/add_Product">
+            </br>
+            <h3>Enter Product Information<h3><br>
+                    <input type="text" name="manufacturer" placeholder="Manufacturer.." class="form-control" required>
+                    <input type="text" name="model" placeholder="Model..." class="form-control" required>
+                    <input type="text" name="price" placeholder="Price..." class="form-control" required>
+                    </br><button type="submit" class="btn btn-primary"> Add Product </button>
+        </form>
+
+        <form method="post" action="/add_Order">
+            </br>
+            <h3>Enter Order Information<h3><br>
+                    <input type="text" name="items" placeholder="Items.." class="form-control" required>
+                    </br><button type="submit" class="btn btn-primary"> Add Order </button>
+        </form>
+
+
+        <form id="userForm" method="get" action="/users/:id">
+            </br>
+            <h3>Search User Information<h3><br>
+                    <input type="text" name="userId" placeholder="User ID ..." class="form-control" required>
+                    </br><button type="submit" class="btn btn-primary"> Search User </button>
+        </form>
+
+        <div id="userDetails"></div>
+
+        <form id="orderForm" method="get" action="/orders/:id">
+            </br>
+            <h3>Search Order Information<h3><br>
+                    <input type="text" name="orderId" placeholder="Order ID ..." class="form-control" required>
+                    </br><button type="submit" class="btn btn-primary"> Search Order </button>
+        </form>
+
+        <div id="orderDetails"></div>
+
+
+        <form id="productForm" method="get" action="/products/:id">
+            </br>
+            <h3>Search Product Information<h3><br>
+                    <input type="text" name="productId" placeholder="Product ID ..." class="form-control" required>
+                    </br><button type="submit" class="btn btn-primary"> Search Product</button>
+        </form>
+
+        <div id="productDetails"></div>
+
+        <form id="updateUserForm">
+            </br>
+            <h3>Update User Information<h3><br>
+                    <input type="text" id="userId" name="userId" placeholder="User ID ..." class="form-control"
+                        required>
+                    <input type="text" name="title" placeholder="Title.." class="form-control">
+                    <input type="text" name="fname" placeholder="First name..." class="form-control">
+                    <input type="text" name="surname" placeholder="Last name..." class="form-control">
+                    <input type="text" name="mobile" placeholder="Mobile Number.." class="form-control">
+                    <input type="text" name="email" placeholder="Email Address.." class="form-control">
+                    </br>
+                    <button type="submit" class="btn btn-primary">Update User</button>
+        </form>
+
+        <form id="updateOrderForm">
+            </br>
+            <h3>Update Order Information<h3><br>
+                    <input type="text" id="orderId" name="orderId" placeholder="Order ID ..." class="form-control"
+                        required>
+                    <input type="text" name="items" placeholder="Items.." class="form-control">
+                    </br><button type="submit" class="btn btn-primary">Update Order</button>
+        </form>
+
+
+        <form id="updateProductForm">
+
+            <h3>Update Product Information</h3><br>
+            <input type="text" id="productId" name="productId" placeholder="Product ID ..." class="form-control"
+                required>
+            <input type="text" id="manufacturer" name="manufacturer" placeholder="Manufacturer ..."
+                class="form-control">
+            <input type="text" id="model" name="model" placeholder="Model ..." class="form-control">
+            <input type="text" id="price" name="price" placeholder="Price..." class="form-control">
+            </br> <button type="submit" class="btn btn-primary">Update Product</button>
+        </form>
+
+    </div>
+    <div class="wrapper mb-3 mt-3">
+        <form id="deleteUserForm">
+            <h3>Delete User Information</h3>
+            <input type="text" name="userId" placeholder="User ID ..." class="form-control" required>
+            <br>
+            <button type="submit" class="btn btn-primary">Delete User</button>
+        </form>
+
+        <form id="deleteOrderForm">
+            <h3>Delete Order Information</h3>
+            <input type="text" id="orderId" name="orderId" placeholder="Order ID ..." class="form-control" required>
+            <br>
+            <button type="submit" class="btn btn-primary">Delete Order</button>
+        </form>
+
+        <form id="deleteProductForm">
+            <h3>Delete Product Information</h3>
+            <input type="text" id="productId" name="productId" placeholder="Product ID ..." class="form-control"
+                required>
+            <br>
+            <button type="submit" class="btn btn-primary">Delete Product</button>
+        </form>
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#productForm').submit(function (event) {
+                event.preventDefault();
+                const productId = $('input[name="productId"]').val();
+                $.get('/products/' + productId, function (data) {
+                    $('#productDetails').html(data);
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#orderForm').submit(function (event) {
+                event.preventDefault();
+                const orderId = $('input[name="orderId"]').val();
+                $.get('/orders/' + orderId, function (data) {
+                    $('#orderDetails').html(data);
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#userForm').submit(function (event) {
+                event.preventDefault();
+                const userId = $('input[name="userId"]').val();
+                $.get('/users/' + userId, function (data) {
+                    $('#userDetails').html(data);
+                });
+            });
+        });
+
+
+        $(document).ready(function () {
+            $('#updateUserForm').submit(function (event) {
+                event.preventDefault();
+                //Get the updated user information from the form
+                const userId = $('input[name="userId"]').val();
+                const title = $('input[name="title"]').val();
+                const fname = $('input[name="fname"]').val();
+                const surname = $('input[name="surname"]').val();
+                const mobile = $('input[name="mobile"]').val();
+                const email = $('input[name="email"]').val();
+                $.ajax({
+                    url: '/users/' + userId,
+                    type: 'PUT',
+                    data: { title: title, fname: fname, surname: surname, mobile: mobile, email: email },
+                    success: function (response) {
+                        // Update the user details
+                        $('#userDetails').html(`
+            	    <h1>User</h1>
+                    <p>Title: ${response.title}</p>
+                    <p>First Name: ${response.fname}</p>
+                    <p>Last Name: ${response.surname}</p>
+                    <p>Mobile Number: ${response.mobile}</p>
+                    <p>Email Address: ${response.email}</p>
+                `);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert('An error occurred while updating the user');
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#updateOrderForm').submit(function (event) {
+                event.preventDefault();
+                const orderId = $('input[name="orderId"]').val();
+                const items = $('input[name="items"]').val();
+                $.ajax({
+                    url: '/orders/' + orderId,
+                    type: 'PUT',
+                    data: { Items: items },
+                    success: function (response) {
+                        // Update the user details 
+                        $('#orderDetails').html(`
+            	    <h1>Orders</h1>
+                    <p>Items: ${response.items}</p>
+                `);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert('An error occurred while updating the user');
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#updateProductForm').submit(function (event) {
+                event.preventDefault();
+                const productId = $('#updateProductForm input[name="productId"]').val();
+                const manufacturer = $('#updateProductForm input[name="manufacturer"]').val();
+                const model = $('#updateProductForm input[name="model"]').val();
+                const price = $('#updateProductForm input[name="price"]').val();
+                $.ajax({
+                    url: '/productsUpdate/' + productId,
+                    type: 'PUT',
+                    data: { manufacturer: manufacturer, model: model, price: price },
+                    success: function (response) {
+                        // Update the product details
+                        $('#productDetails').html(`
+                                <h1>Product</h1>
+                                <p>Manufacturer: ${response.manufacturer}</p>
+                                <p>Model: ${response.model}</p>
+                                <p>Price: ${response.price}</p>
+                                `);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert('An error occurred while updating the product');
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#deleteUserForm').submit(function (event) {
+                event.preventDefault();
+                const userId = $('input[name="userId"]').val();
+                $.ajax({
+                    url: '/usersDelete/' + userId,
+                    type: 'DELETE',
+                    success: function (response) {
+                        alert('User deleted successfully');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert('An error occurred while deleting the user');
+                    }
+                });
+            });
+        });
+
+
+        $(document).ready(function () {
+            $('#deleteOrderForm').submit(function (event) {
+                event.preventDefault();
+                const orderId = $('input[name="orderId"]').val();
+                $.ajax({
+                    url: '/ordersDelete/' + orderId,
+                    type: 'DELETE',
+                    success: function (response) {
+                        alert('Order deleted successfully');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert('An error occurred while deleting the Order');
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#deleteProductForm').submit(function (event) {
+                event.preventDefault();
+                const productId = $('input[name="productId"]').val();
+                $.ajax({
+                    url: '/productsDelete/' + productId,
+                    type: 'DELETE',
+                    success: function (response) {
+                        alert('Product deleted successfully');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert('An error occurred while deleting the Product');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
